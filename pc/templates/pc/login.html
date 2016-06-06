@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NS - Note System</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <link type="text/css" rel="stylesheet" href="/static/common/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="/static/pc/css/base.css" />
+  <link type="text/css" rel="stylesheet" href="/static/pc/css/login.css" />
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4 col-xs-8 col-xs-offset-2 loginBox">
+        <div class="loginHead">NS - Note System</div>
+        <div class="loginContent">
+          <input type="email" id="la" class="form-control" placeholder="Email address" required="" autofocus="">
+          <input type="password" id="lpwd" class="form-control lastInput" placeholder="Password" required="">
+          <div class="btn-group btn-group-justified" role="group" aria-label="...">
+            <a class="btn btn-default" id="loginBtn" type="submit">Sign in</a>
+            <a class="btn btn-default" id="toSignUpBtn">Sign up</a>
+          </div>
+        </div>
+        <div class="registerContent">
+          <input type="email" id="ra" class="form-control" placeholder="Email address" required="" autofocus="">
+          <input type="password" id="rpwd" class="form-control" placeholder="Password" required="">
+          <input type="password" id="rpwdc" class="form-control lastInput" placeholder="Password Confirm" required="">
+          <button class="btn btn-default btn-block" id="signUpBtn" type="submit">Sign up</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="/static/common/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/static/common/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/pc/js/login.js"></script>
+</html>

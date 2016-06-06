@@ -1,0 +1,46 @@
+{% extends 'pc/widgets/base.html' %}
+
+{% block style %}
+<link type="text/css" rel="stylesheet" href="/static/pc/css/index.css" />
+<link type="text/css" rel="stylesheet" href="/static/pc/css/markdown.css" />
+{% endblock %}
+
+{% block main %}
+<div class="row mainRow">
+  <div class="col-md-7 col-lg-8 noteInputBox">
+    <input type="text" class="noteTitle" placeholder="Note Title" />
+    <textarea class="noteInputArea" data-role="mdArea"></textarea>
+  </div>
+  <div class="col-md-5 col-lg-4">
+    <div class="referBlockBox">
+      <div class="referBlock">
+        <div class="deleteBlockBtn"><span class="glyphicon glyphicon-remove"></span></div>
+        <input class="referContent" placeholder="link address" type="text"/>
+      </div>
+      <div class="referBlock">
+        <div class="deleteBlockBtn"><span class="glyphicon glyphicon-remove"></span></div>
+        <input class="referHead" placeholder="knowledge point title" type="text" />
+        <div class="referContent" contenteditable></div>
+      </div>
+    </div>
+    <div class="referBtnContainer">
+      <div class="btn-group" role="group" aria-label="...">
+        <button title="add link" type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-paperclip"></span>
+        </button>
+        <button title="add knowledge point" type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-tags"></span>
+        </button>
+        <button title="save to server" type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-floppy-disk"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/static/pc/js/markdown.js"></script>
+<script type="text/javascript" src="/static/pc/js/index.js"></script>
+{% endblock %}

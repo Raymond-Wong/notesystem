@@ -1,0 +1,41 @@
+html {
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Monospace';
+  background-color: #ffffff;
+}
+
+html, body, .mainContainer, .mainRow {
+  height: 100%;
+}
+
+.main {
+  padding-top: 51px;
+  padding-bottom: 1em;
+  position: relative;
+}
+
+.textEllipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nopadding {
+  padding: 0;
+}
+
+.centerText {
+  text-align: center;
+}
+
+.navbar-inverse {
+  background-color: #AFBBC2;
+  border-color: #AFBBC2;
+}
+
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav>li>a {
+  color: #f5f5f5;
+}

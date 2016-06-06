@@ -1,0 +1,53 @@
+<div id="sideNavRightClickMenu">
+  <div class="btn-group-vertical" role="group">
+    <button type="button" title="add folder" class="btn btn-default">Add Folder</button>
+    <button type="button" title="add note" class="btn btn-default">Add Note</button>
+    <button id="rightClickRenameBtn" type="button" title="rename" class="btn btn-default">Rename</button>
+    <button id="rightClickDeleteBtn" type="button" title="delete" class="btn btn-default">Delete</button>
+  </div>
+</div>
+<div id="sideNavInner">
+  <div class="loadingBox">
+    <div class="spinner">
+      <div class="rect1"></div>
+      <div class="rect2"></div>
+      <div class="rect3"></div>
+      <div class="rect4"></div>
+      <div class="rect5"></div>
+    </div>
+  </div>
+  <div id="fileListBox">
+    <div class="row">
+      <div class="input-group input-group-sm">
+        <input type="text" class="form-control" placeholder="keyword">
+        <span title="search" class="input-group-addon btn glyphicon glyphicon-search" id="searchBtn"></span>
+      </div>
+    </div>
+    <!-- <div id="openingFileList" class="fileList">
+      <div class="row listHead">Open Files</div>
+      <div class="row listRow">
+        <div class="listItem">
+          <div class="listRowFlag closeFileBtn"><div class="glyphicon glyphicon-remove"></div></div>
+          <div class="listRowText textEllipsis">RaymondWong Opening</div>
+        </div>
+      </div>
+    </div> -->
+    <div id="allFileList" class="fileList">
+      <div class="row listHead">All Files</div>
+    </div>
+    <div id="pointList" class="fileList">
+      <div class="row listHead">All Point</div>
+    </div>
+  </div>
+  <div class="btn-group-vertical" id="sideNavBtnBox" role="group">
+    <button type="button" title="switch model" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span></button>
+    <button type="button" title="add folder/file" class="btn btn-default">
+      <span class="glyphicon glyphicon-plus"></span>
+      <div class="addTypeBox btn-group-vertical" role="group">
+        <a type="button" title="add folder" class="btn btn-default">add folder</a>
+        <a type="button" title="add note" class="btn btn-default">add note</a>
+      </div>
+    </button>
+    <button type="button" title="hide/show side bar" id="triggerSideNavBtn" class="btn btn-default"><span class="glyphicon glyphicon-log-out"></span></button>
+  </div>
+</div>
