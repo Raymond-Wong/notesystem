@@ -8,6 +8,7 @@ $(document).ready(function() {
   deleteLinkOrPoint();
   showNote(addLinkBtn, addPointBtn);
   choosePoint();
+  insertTab();
 });
 
 // 添加一个链接
@@ -131,4 +132,28 @@ var choosePoint = function() {
     var target = $('#allFileList .listItem[itemId="' + that.attr('nid') + '"]');
     showTreeNode(target);
   });
+}
+
+// 在一个textarea中按Tab按钮时候不切换工作区
+var insertTab = function() {
+  $('textarea').keydown(function(e) {
+    if (e.keyCode == 9) {
+      insertIntoCaret($(this)[0], '	');
+      return false;
+    }
+  });
+}
+
+var insertIntoCaret = function(obj, str) {
+  if (document.selection) {
+    var sel = document.selection.createRange();
+    sel.text = str;
+  } else if (typeof obj.selectionStart === 'number' && typeof obj.selectionEnd === 'number') {
+    var startPos = obj.selectionStart, endPos = obj.selectionEnd, cursorPos = startPos, tmpStr = obj.value;
+    obj.value = tmpStr.substring(0, startPos) + str + tmpStr.substring(endPos, tmpStr.length);
+    cursorPos += str.length;
+    obj.selectionStart = obj.selectionEnd = cursorPos;
+  } else {
+    obj.value += str;
+  }
 }

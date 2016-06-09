@@ -23,7 +23,7 @@ class Note(Item):
   # 当前笔记的超链接
   links = models.TextField()
   # 笔记标题
-  name = models.CharField(max_length=50)
+  name = models.TextField(blank=False)
 
 class User(models.Model):
   # 昵称

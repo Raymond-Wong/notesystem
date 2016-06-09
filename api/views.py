@@ -116,6 +116,8 @@ def saveNote(request):
   # 申明一个数组来记录这次保存的point有哪些
   cPoints = []
   for p in points:
+    if p['title'] == '' or p['content'] == '':
+      continue
     try:
       point = Knowledge_Point.objects.get(id=p['id'])
     except:
@@ -129,9 +131,7 @@ def saveNote(request):
   # 检查可能被删除的知识点,并接触关系
   for point in note.knowledge_point_set.all():
     if point.id not in cPoints:
-      note.knowledge_point_set.remove(point)
-      if len(point.notes.all()) <= 0:
-        point.delete()
+      point.delete()
   return HttpResponse(Response().toJson(), content_type='application/json')
 
 # 迭代删除
@@ -141,7 +141,12 @@ def deleteItem(targetId, tp):
     for child in target.item_set.all():
       childType = getFolderOrNoteByItem(child).item_type
       deleteItem(child.id, childType)
-    getFolderOrNoteByItem(target).delete()
+    itemChild = getFolderOrNoteByItem(target)
+    # 如果要删除的对象是笔记的话要把笔记对应的知识点都删除
+    if itemChild.item_type == 'note':
+      for point in itemChild.knowledge_point_set.all():
+        point.delete()
+    itemChild.delete()
     target.delete()
   except:
     pass
