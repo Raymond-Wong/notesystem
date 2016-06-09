@@ -116,6 +116,11 @@
   display: none;
 }
 
+#sideNavRightClickMenu button {
+  text-align: left;
+  border-radius: 0;
+}
+
 #pointList .listRow {
   cursor: pointer;
 }
