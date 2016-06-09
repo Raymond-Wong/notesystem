@@ -20,6 +20,7 @@ html, body, .mainContainer, .mainRow {
   padding-top: 51px;
   padding-bottom: 1em;
   position: relative;
+  height: 100%;
 }
 
 .textEllipsis {

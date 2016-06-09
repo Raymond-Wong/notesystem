@@ -6,6 +6,7 @@ $(document).ready(function() {
   listItemRightClick();
   rightClickDelete();
   rightClickRename();
+  rightClickMindMap();
 });
 
 // 显示或隐藏文件夹
@@ -248,4 +249,45 @@ var rightClickRename = function() {
       })
     });
   });
+}
+
+// 右键生成思维导图
+var rightClickMindMap = function() {
+  var loadingBox = $('#mainContentLoading');
+  var mainContent = $('#mainContent');
+  var mindMapContainer = $('#mindMapContainer');
+  $('#rightClickMindMapBtn').click(function() {
+    mindMapContainer.html('');
+    mainContent.hide();
+    loadingBox.show();
+    var target = $('.listItem[rightClick="true"]');
+    var data = iterateTree(target);
+    var mind = {
+      "meta" : {"name" : "NS - NoteSystem", "author" : "RaymondWong", "version" : "0.1"},
+      "format" : "node_tree",
+      "data" : data
+    };
+    var options = {"container" : "mindMapContainer", "editable" : false, "theme" : "asbestos"};
+    var jm = new jsMind(options);
+    loadingBox.hide();
+    mindMapContainer.show();
+    jm.show(mind);
+  });
+}
+
+var iterateTree = function(dom) {
+  var data = {"id" : dom.attr('itemId'), "topic" : dom.children('.listRowText').text()};
+  if (dom.attr('type') == 'folder') {
+    data["children"] = [];
+    dom.parent().children('.fileList').children('.listRow').children('.listItem').each(function() {
+      data["children"].push(iterateTree($(this)));
+    });
+  } else if (dom.attr('type') == 'note') {
+    data["children"] = [];
+    var count = 0;
+    $('#pointList .listRow[nid="' + dom.attr('itemId') + '"]').each(function() {
+      data["children"].push({"id" : "nid_" + (count++) + "_" + dom.attr('itemId'), "topic" : $(this).children('.pointTitle').text()});
+    });
+  }
+  return data;
 }

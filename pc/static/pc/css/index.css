@@ -87,3 +87,8 @@ div.referContent {
 .pointContent {
   min-height: 10em;
 }
+
+#mindMapContainer {
+  display: none;
+  height: 100%;
+}
