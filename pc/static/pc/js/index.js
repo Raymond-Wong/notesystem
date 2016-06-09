@@ -9,22 +9,24 @@ $(document).ready(function() {
   showNote(addLinkBtn, addPointBtn);
   choosePoint();
   insertTab();
+  switchModel();
+  showNotePoint();
 });
 
 // 添加一个链接
 var addLinkAction = function(addLinkBtn) {
   addLinkBtn.click(function() {
-    var container = $('.referBlockBox');
-    container.append($(linkBlock));
+    var container = $('#referLinkBox');
+    container.prepend($(linkBlock));
   });
 }
 
 // 添加一个知识点
 var addPointAction = function(addPointBtn) {
   addPointBtn.click(function() {
-    var container = $('.referBlockBox');
+    var container = $('#referPointBox');
     var newPoint = $(pointBlock);
-    container.append(newPoint);
+    container.prepend(newPoint);
     mdInitOne(newPoint.children('.referContent'));
   });
 }
@@ -76,10 +78,16 @@ var saveNoteAction = function(saveNoteBtn) {
 
 
 var showNote = function(addLinkBtn, addPointBtn) {
+  var mainContent = $('#mainContent');
+  var loading = $('#mainContentLoading');
   $(document).delegate('.listItem[type="note"]', 'click', function() {
+    mainContent.hide();
+    loading.show();
     var params = {'id' : $(this).attr('itemId')};
     var that = $(this);
     if (params['id'] == $('.noteInputBox').attr('id')) {
+      loading.hide();
+      mainContent.show();
       return false;
     }
     $.get('/api/getNote', params, function(resp) {
@@ -90,7 +98,7 @@ var showNote = function(addLinkBtn, addPointBtn) {
         $('.noteInputBox').attr('id', resp['msg']['id']);
         $('.noteInputBox').children('.noteTitle').val(resp['msg']['name']);
         $($('.noteInputBox').find('.noteInputArea')[0]).val(resp['msg']['content']);
-        var container = $('.referBlockBox');
+        var container = $('#referLinkBox');
         container.html('');
         try {
           var links = $.parseJSON(resp['msg']['links']);
@@ -103,6 +111,8 @@ var showNote = function(addLinkBtn, addPointBtn) {
         } catch (err) {
           addLinkBtn.trigger('click');
         }
+        container = $('#referPointBox');
+        container.html('');
         var points = $.parseJSON(resp['msg']['points']);
         if (points.length > 0) {
           for (var i = 0; i < points.length; i++) {
@@ -120,9 +130,19 @@ var showNote = function(addLinkBtn, addPointBtn) {
         }
         // 将笔记放在打开的文件中
         $($('#openingFileList').find('.listRowText')[0]).text(that.children('.listRowText').text());
+        loading.hide();
+        mainContent.show();
       }
     });
   })
+}
+
+var showNotePoint = function() {
+  $(document).delegate('.listItem[type="point"]', 'click', function() {
+    var nid = $(this).attr('nid');
+    var note = $('.listItem[itemId="' + nid + '"]');
+    note.trigger('click');
+  });
 }
 
 // 选中一个知识点后打开相应的笔记
@@ -132,6 +152,17 @@ var choosePoint = function() {
     var target = $('#allFileList .listItem[itemId="' + that.attr('nid') + '"]');
     showTreeNode(target);
   });
+}
+
+// 在树结构中显示某个节点
+var showTreeNode = function(target) {
+  $(target.parents('.fileList')).each(function() {
+    if ($(this).css('display') == 'none') {
+      var item = $(this).parent().children('.listItem');
+      item.children('.toggleFolderBtn').trigger('click');
+    }
+  });
+  target.trigger('click');
 }
 
 // 在一个textarea中按Tab按钮时候不切换工作区
@@ -156,4 +187,40 @@ var insertIntoCaret = function(obj, str) {
   } else {
     obj.value += str;
   }
+}
+
+var MODEL = 'files';
+
+var switchModel = function() {
+  $('button[title="switch model"]').click(function() {
+    if (MODEL == 'files')
+      switch2NotesModel();
+    else if (MODEL == 'notes')
+      switch2FilesModel();
+  });
+}
+
+// 将当前模式转换为知识点模式
+var switch2NotesModel = function() {
+  $('.listItem[type="note"]').each(function() {
+    var note = $(this);
+    var noteBox = note.parent();
+    noteBox.hide();
+    $('#pointList').children('.listRow[nid="' + note.attr('itemId') + '"]').each(function() {
+      var newPoint = $(filePointRow);
+      $(newPoint.find('.listRowText')).text($(this).children('.pointTitle').text());
+      newPoint.children('.listItem').attr('nid', note.attr('itemId'));
+      noteBox.before(newPoint);
+    });
+    MODEL = 'notes';
+  });
+}
+
+// 将当前模式转换为文件夹模式
+var switch2FilesModel = function() {
+  $('.listItem[type="point"]').each(function() {
+    $(this).parent().remove();
+  });
+  $('.listItem[type="note"').parent().show();
+  MODEL = 'files';
 }

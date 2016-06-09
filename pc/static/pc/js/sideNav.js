@@ -10,10 +10,10 @@ $(document).ready(function() {
 
 // 显示或隐藏文件夹
 var toggleFolder = function() {
-  $(document).delegate('.listItem', 'click', function() {
-    var fileList = $(this).parent().children('.fileList');
-    var flag = $(this).children('.listRowFlag').children();
-    var item = $(this);
+  $(document).delegate('.toggleFolderBtn', 'click', function() {
+    var item = $(this).parent();
+    var fileList = item.parent().children('.fileList');
+    var flag = item.children('.listRowFlag').children();
     fileList.slideToggle('fast', function() {
       $('.listItem.active').removeClass('active');
       if (flag.hasClass('glyphicon-chevron-down')) {
@@ -29,6 +29,10 @@ var toggleFolder = function() {
         item.addClass('active');
       }
     });
+  });
+  $(document).delegate('.listItem[type="folder"]', 'click', function() {
+    $('.listItem.active').removeClass('active');
+    $(this).addClass('active');
   });
 }
 
@@ -176,6 +180,18 @@ var listItemRightClick = function() {
   // 弹出鼠标右键菜单
   $(document).delegate('.listItem', 'mousedown', function(e) {
     if (e.which == 3) {
+      // 判断点击右键的对象是否是文件夹，如果不是的话隐藏两个按钮
+      if ($(this).attr('type') == "note") {
+        $(menu.find('button[title="add folder"]')[0]).hide();
+        $(menu.find('button[title="add note"]')[0]).hide();
+      } else if ($(this).attr('type') == 'folder') {
+        $(menu.find('button[title="add folder"]')[0]).show();
+        $(menu.find('button[title="add note"]')[0]).show();
+      } else {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
       e.preventDefault();
       e.stopPropagation();
       menu.css('left', e.pageX + 'px');
@@ -232,14 +248,4 @@ var rightClickRename = function() {
       })
     });
   });
-}
-
-// 在树结构中显示某个节点
-var showTreeNode = function(target) {
-  $(target.parents('.fileList')).each(function() {
-    if ($(this).css('display') == 'none') {
-      $(this).parent().children('.listItem').trigger('click');
-    }
-  });
-  target.trigger('click');
 }

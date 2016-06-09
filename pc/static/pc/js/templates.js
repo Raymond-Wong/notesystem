@@ -3,12 +3,19 @@ var fileRow = '<div class="row listRow" draggable="true">' +
                   '<div class="listRowFlag"><div class="glyphicon glyphicon-list-alt"></div></div>' +
                   '<div class="listRowText textEllipsis"></div>' +
                 '</div>' +
-                '<div class="row fileList"></div>' +
+              '</div>';
+
+var filePointRow = '' +
+              '<div class="row listRow" draggable="true">' +
+                '<div class="listItem" type="point">' +
+                  '<div class="listRowFlag"><div class="glyphicon glyphicon-unchecked"></div></div>' +
+                  '<div class="listRowText textEllipsis"></div>' +
+                '</div>' +
               '</div>';
 
 var folderRow = '<div class="row listRow" draggable="true">' +
                   '<div class="listItem">' +
-                    '<div class="listRowFlag"><div class="glyphicon glyphicon-chevron-right"></div></div>' +
+                    '<div class="listRowFlag toggleFolderBtn"><div class="glyphicon glyphicon-chevron-right"></div></div>' +
                     '<div class="listRowText textEllipsis"></div>' +
                   '</div>' +
                   '<div class="row fileList"></div>' +
