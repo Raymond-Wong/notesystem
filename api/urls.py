@@ -14,4 +14,5 @@ urlpatterns = patterns('',
   url(r'^/saveNote$', views.saveNote),
   url(r'^/getPointList$', views.getPointList),
   url(r'^/markdown$', views.mdParser),
+  url(r'^/upload/image$', views.uploadImage),
 )

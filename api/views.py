@@ -160,6 +160,10 @@ def mdParser(request):
   except Exception, e:
     return HttpResponse(Response(c='3', m='unknown error occured(%s)' % e).toJson(), content_type='application/json')
 
+# 上传图片
+def uploadimage(request):
+  pass
+
 def getChildren(root):
   children = root.item_set.order_by('created_time')
   if len(children) == 0:
