@@ -31,7 +31,7 @@ var toggleFolder = function() {
       }
     });
   });
-  $(document).delegate('.listItem[type="folder"]', 'click', function() {
+  $(document).delegate('.listItem', 'click', function() {
     $('.listItem.active').removeClass('active');
     $(this).addClass('active');
   });

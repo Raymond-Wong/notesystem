@@ -16,3 +16,7 @@
 .mdPreviewArea {
   display: none;
 }
+
+.mdPreviewArea img {
+  max-width: 50%;
+}

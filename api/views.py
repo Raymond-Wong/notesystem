@@ -5,6 +5,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 import json
 import markdown
+import time
 
 from django.http import HttpResponse, HttpRequest, HttpResponseServerError, Http404
 from django.shortcuts import render_to_response, redirect
@@ -12,6 +13,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 
 from pc.models import *
+from models import *
 from NoteSystem.utils import Response
 
 # 获取文件结构
@@ -161,8 +163,14 @@ def mdParser(request):
     return HttpResponse(Response(c='3', m='unknown error occured(%s)' % e).toJson(), content_type='application/json')
 
 # 上传图片
-def uploadimage(request):
-  pass
+@csrf_exempt
+def uploadImage(request):
+  image = request.FILES['image']
+  image._name = '%s_%s' % (str(int(time.time())), image._name)
+  image = Image(url=image)
+  image.save()
+  url = '/media/' + image.__dict__.get('url')
+  return HttpResponse(Response(m=url).toJson(), content_type='application/json')
 
 def getChildren(root):
   children = root.item_set.order_by('created_time')

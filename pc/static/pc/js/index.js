@@ -11,6 +11,7 @@ $(document).ready(function() {
   insertTab();
   switchModel();
   showNotePoint();
+  uploadImage();
 });
 
 // 添加一个链接
@@ -80,8 +81,10 @@ var saveNoteAction = function(saveNoteBtn) {
 var showNote = function(addLinkBtn, addPointBtn) {
   var mainContent = $('#mainContent');
   var loading = $('#mainContentLoading');
+  var mindMap = $('#mindMapContainer');
   $(document).delegate('.listItem[type="note"]', 'click', function() {
     mainContent.hide();
+    mindMap.hide();
     loading.show();
     var params = {'id' : $(this).attr('itemId')};
     var that = $(this);
@@ -223,4 +226,33 @@ var switch2FilesModel = function() {
   });
   $('.listItem[type="note"').parent().show();
   MODEL = 'files';
+}
+
+var uploadImage = function() {
+  var inputStr = '<input type="file" name="image" multiple="multiple" accept="image/*" class="hide" />';
+  $(document).delegate('.mdImgBtn', 'click', function() {
+    var inputDom = $(inputStr);
+    $(this).before(inputDom);
+    autoUpload(inputDom);
+  });
+}
+
+var autoUpload = function(dom) {
+  dom.trigger('click');
+  var url = '/api/upload/image';
+  dom.fileupload({
+    autoUpload: true,//是否自动上传
+    url: url,//上传地址
+    sequentialUploads: true,
+    done: function (e, resp) {
+      resp = resp['result'];
+      if (resp['code'] != 0) {
+        alert(resp['msg']);
+      } else {
+        var textarea = $($(this).parents('.mdArea')[0]).find('.mdTextArea')[0];
+        insertIntoCaret(textarea, '<img src="' + resp['msg'] + '" />');
+      }
+      $(this).remove();
+    },
+  });
 }
