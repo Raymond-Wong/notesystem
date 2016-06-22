@@ -1,0 +1,22 @@
+.mdArea {
+  position: relative;
+}
+
+.mdBtnBox {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  opacity: 0.2;
+}
+
+.mdBtnBox:hover {
+  opacity: 1;
+}
+
+.mdPreviewArea {
+  display: none;
+}
+
+.mdPreviewArea img {
+  max-width: 50%;
+}

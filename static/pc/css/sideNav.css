@@ -1,0 +1,135 @@
+.sideNav {
+  position: fixed;
+  top: 51px;
+  bottom: 0;
+  left: 0;
+  display: block;
+  padding: 20px;
+  overflow-x: visible;
+  overflow-y: visible; /* Scrollable contents if viewport is shorter than content. */
+  background-color: #f5f5f5;
+  border-right: 1px solid #eee;
+}
+
+#sideNavInner {
+  position: relative;
+  height: 100%;
+}
+
+#searchBtn {
+  top: 0;
+}
+
+.fileList {
+  margin-top: 20px;
+}
+
+.fileList .listHead {
+  background-color: white;
+  margin-left: -20px;
+  margin-right: -20px;
+  padding: 5px;
+  color: #666;
+}
+
+.fileList .fileList {
+  margin: 0;
+}
+
+.fileList .fileList .listRow {
+  margin: 0;
+  margin-left: 1em;
+  margin-top: 3px;
+}
+
+.listRow {
+  position: relative;
+  color: #888;
+  margin-top: 3px;
+}
+
+.listItem.active {
+  color: #000;
+}
+
+.listItem:hover {
+  cursor: pointer;
+  color: #000;
+}
+
+.listRowText {
+  padding-left: 1.5em;
+  white-space: nowrap;
+}
+
+.listRowFlag .glyphicon {
+  position: absolute;
+  left: 0;
+  top: -1px;
+  font-size: 12px;
+  top: 3px;
+  left: 1px;
+}
+
+#sideNavBtnBox {
+  position: absolute;
+  bottom: 1em;
+  right: -57px;
+  width: 3em;
+  height: 6em;
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+#sideNavBtnBox:hover {
+  opacity: 1;
+}
+
+#sideNavBtnBox .btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border: 1px solid #eee;
+  border-left: 0;
+  position: relative;
+}
+
+#fileListBox {
+  display: none;
+}
+
+#allFileList .fileList {
+  display: none;
+}
+
+.addTypeBox {
+  position: absolute;
+  top: -1px;
+  right: -89px;
+  display: none;
+}
+
+#sideNavRightClickMenu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  display: none;
+}
+
+#sideNavRightClickMenu button {
+  text-align: left;
+  border-radius: 0;
+}
+
+#pointList .listRow {
+  cursor: pointer;
+}
+
+#pointList .listRow:hover {
+  color: #000;
+}
+
+.addNameInputArea {
+  width: 100%;
+  margin-top: 0.5em;
+}
