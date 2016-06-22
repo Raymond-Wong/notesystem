@@ -158,6 +158,7 @@ def deleteItem(targetId, tp):
 def mdParser(request):
   try:
     text = request.POST.get('text', '')
+    text = text + '<script type="text/javascript" src="/static/common/js/MathJax.js?config=default"></script>'
     return HttpResponse(Response(m=markdown.markdown(text)).toJson(), content_type='application/json')
   except Exception, e:
     return HttpResponse(Response(c='3', m='unknown error occured(%s)' % e).toJson(), content_type='application/json')
