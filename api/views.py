@@ -163,6 +163,19 @@ def mdParser(request):
   except Exception, e:
     return HttpResponse(Response(c='3', m='unknown error occured(%s)' % e).toJson(), content_type='application/json')
 
+# 获得图片的完整链接
+def appendImageUrl(x):
+  from django.conf import settings
+  remote_media_path = "http://notesystem-images.stor.sinaapp.com/"
+  IMAGE_BASE_URL = remote_media_path if not settings.REMOTE else "/media/"
+  if type(x) == dict:
+    x["image"] = IMAGE_BASE_URL + x.get("image", "")
+  elif type(x) == str or type(x) == unicode:
+    x = IMAGE_BASE_URL + x
+  else:
+    x = "/static/pc/icon/logo.png"
+  return x
+
 # 上传图片
 @csrf_exempt
 def uploadImage(request):
@@ -170,7 +183,7 @@ def uploadImage(request):
   image._name = '%s_%s' % (str(int(time.time())), image._name)
   image = Image(url=image)
   image.save()
-  url = '/media/' + image.__dict__.get('url')
+  url = appendImageUrl(image.__dict__.get('url'))
   return HttpResponse(Response(m=url).toJson(), content_type='application/json')
 
 def getChildren(root):
